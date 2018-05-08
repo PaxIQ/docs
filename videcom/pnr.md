@@ -1,4 +1,4 @@
-#PNR
+# PNR
 
 > Passenger Name Record
 
@@ -76,7 +76,10 @@ Appending `~x` will cause the response to be formatted in XML-ish:
 ```
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><RunVRSCommandResult xmlns="http://videcom.com/">&lt;PNR RLOC="X4AAH9" PNRLocked="False" PNRLockedReason="" SecureFlight="False" sfpddob="N" sfpdgndr="N" showFares="True" editFlights="False" editProducts="True"&gt;
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body>
+    <RunVRSCommandResult xmlns="http://videcom.com/">&lt;PNR RLOC="X4AAH9" PNRLocked="False" PNRLockedReason="" SecureFlight="False" sfpddob="N" sfpdgndr="N" showFares="True" editFlights="False" editProducts="True"&gt;
   &lt;Names&gt;
     &lt;PAX GrpNo="1" GrpPaxNo="1" PaxNo="1" Title="" FirstName="JOHN" Surname="DOE" PaxType="AD" Age="" awards="0"/&gt;
   &lt;/Names&gt;
@@ -135,30 +138,31 @@ Appending `~x` will cause the response to be formatted in XML-ish:
   &lt;fqfields&gt;
     &lt;fqfield line="1" fareid="" finf="0,0,0"/&gt;
   &lt;/fqfields&gt;
-&lt;/PNR&gt;
-</RunVRSCommandResult></soap:Body></soap:Envelope>
+&lt;/PNR&gt;</RunVRSCommandResult>
+  </soap:Body>
+</soap:Envelope>
 ```
 
 Clearly, this is "XML-ish" as the `>` and `<` characters have been HTML encoded as `&gt;` & `&lt;`, respectively. In order to parse this as XML, you first need to clean it up. In JavaScript, it looks like this:
 
 ```javascript
-// xmlish is the string of data returned by issuing the `*X4AAH9~x` command
+// pnr is the string of data returned in the <RunVRSCommandResult> element
 
-const pnrXml = xmlish
+const pnrXml = pnr
   .replace(/&gt;/g, `>`)
   .replace(/&lt;/g, `<``);
 ```
 
 There are some JavaScript/NodeJS libraries that I have found useful in working with this data:
 
-- `pixl-xml` - Good for parsing the XML into JSON
+- [`pixl-xml`](https://www.npmjs.com/package/pixl-xml) - Good for parsing the XML into JSON
 
 ```javascript
 const pixl = require('pixl-xml');
 const pnrJson = pixl.parse(pnrXml, { forceArrays: true });
 ```
 
-- `has-deep` - Makes navigating the JSON a bit less painful
+- [`has-deep`](https://www.npmjs.com/package/has-deep) - Makes navigating the JSON a bit less painful
 
 ```javascript
 const has = require('has-deep');
