@@ -5,7 +5,6 @@
 ## List of Docs
 
 - [Videcom](./videcom/readme.md)
-- [IATA Manual](./iata/242320788-SSIM-Manual-March-2011.pdf)
 
 ## Contributing
 
