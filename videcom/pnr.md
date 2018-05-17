@@ -170,5 +170,66 @@ const airlineId = has(pnrJson[0], 'RLE[0].AirID');
 
 // instead of
 
-const airlineId = (pnrJson[0] && pnrJson[0].RLE && pnrJson[0].RLE[0]) ? pnrJson[0].RLE[0].AirID : undefined;
+const airlineId = (pnrJson && pnrJson[0] && pnrJson[0].RLE && pnrJson[0].RLE[0]) ? pnrJson[0].RLE[0].AirID : undefined;
 ```
+
+## Record Locator (`rloc`)
+
+The RLOC is the unique 6-character string used to identify a PNR. In the example we use here, the RLOC is `X4AAH9`. The RegExp pattern for matching the RLOC is `/[A-Z0-9]{6}/.`
+
+## Passengers
+
+A PNR has one or many passengers. Individual passengers are listed as `<PAX>` elements in the `<Names>` element.
+
+The `PAX.PaxNo` property is the same as the line number in the plain-text PNR and is how the other data in the PNR is associated with a passenger.
+
+The `PaxNo` number *can* change if passengers with a lower number are removed.
+
+## Itineraries
+
+A PNR *should* have at least one `Itinerary.Itin` element. If it does not, then the PNR has been canceled and the contents of the `<Itinerary>` element *should* be `NO Itinerary`.
+
+The `Itin.Line` property is the unique identifier by which the segment/itinerary is referenced elsewhere in the PNR.
+
+The `Line` number *can* change if segments w/ a lower number are removed.
+
+## Contacts
+
+The `Contacts.CTC` elements contain the contact information for the PNR. Sometimes, as in the example PNR, this information reflects the travel agency that booked the trip. If there is a `CTC.Pax` number provided, it should reflect the `PAX.PaxNo`.
+
+## APFAX
+
+- TODO
+
+## GenFax
+
+- TODO
+
+## FareQuote
+
+- TODO
+
+## Payments
+
+- TODO
+
+## Tickets
+
+The `Tickets.TKT` element references both a passenger & an itinerary.
+
+```
+TKT.Pax === PAX.PaxNo
+TKT.SegNo === Itin.Line
+```
+
+## Remarks
+
+The `Remarks.RMK` elements are free-text fields with notes for the PNR. The `RMK.Line` number is how the remark is referenced and it *can* change if other remarks with a lower `Line` number are removed.
+
+## TourOp
+
+- TODO
+
+## RLE
+
+- TODO
