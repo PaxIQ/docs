@@ -5,6 +5,7 @@
 ## List of Docs
 
 - [Videcom](./videcom/readme.md)
+- [Pivot](./pivot/readme.md)
 
 ## Contributing
 
