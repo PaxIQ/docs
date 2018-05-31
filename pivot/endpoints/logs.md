@@ -7,6 +7,7 @@ This endpoint will return the logs for a specific call. This is raw diagnostic d
 - Querystring
   - `requestId` - *(String, optional)* The UUID returned in the response
   - `echo` - *(String, optional)* The echo value returned in the response
+  - **One of `requestId` OR `echo` is required**
 
 ## Example
 
