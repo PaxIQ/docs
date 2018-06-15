@@ -165,4 +165,4 @@ curl \
 
 ## Data Modeling
 
-The `result.booking` object shows the response back from Videcom. The example above shows the response when there is a problem with payment. If, however, payment is successful, the new PNR is returned.
+The `result.booking` object shows the response back from Videcom. The example above shows the response when there is a problem with payment. If, however, payment is successful, the new [PNR](./pnr.md) is returned.
