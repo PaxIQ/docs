@@ -146,18 +146,20 @@ curl \
 **Response**
 ```json
 {
-  "requestId": "7ba10d16-f85f-498a-9986-ade51765b024",
+  "requestId": "27bcd679-8f14-42b0-a49c-0a108f99dfeb",
   "echo": "bar",
   "version": "1.0",
   "result": {
     "command": "-MRJOHN/DOE#^3-1FDOB 26SEP81^3-1FGNDR MALE^3-1FPWGT 240^9-1E*JDOE@EXAMPLE.COM^0TJ0105R24JUNSBHSJUNN1^FG^FS1^*R^MKUSD292.21/4242424242424242**0120^EZT*R^EZRE^R*~X",
     "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><RunVRSCommandResult xmlns=\"http://videcom.com/\">&lt;VrsServerResponse&gt;&lt;PaymentResult&gt;\n&lt;PaymentState&gt;PaymentError&lt;/PaymentState&gt;\n&lt;AuthCode/&gt;\n&lt;Description&gt;E00003 The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.&lt;/Description&gt;\n&lt;BankLogId/&gt;\n&lt;PaymentCompleted&gt;false&lt;/PaymentCompleted&gt;\n&lt;/PaymentResult&gt;&lt;/VrsServerResponse&gt;</RunVRSCommandResult></soap:Body></soap:Envelope>",
     "booking": {
-      "state": "PaymentError",
-      "authCode": "",
-      "description": "E00003 The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.",
-      "bankLogId": "",
-      "paymentComplete": false
+      "paymentResult": {
+        "state": "PaymentError",
+        "authCode": "",
+        "description": "E00003 The 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' element is invalid - The value XX is invalid according to its datatype 'AnetApi/xml/v1/schema/AnetApiSchema.xsd:cardCode' - The Pattern constraint failed.",
+        "bankLogId": "",
+        "paymentComplete": false
+      }
     }
   }
 }
@@ -165,4 +167,4 @@ curl \
 
 ## Data Modeling
 
-The `result.booking` object shows the response back from Videcom. The example above shows the response when there is a problem with payment. If, however, payment is successful, the new [PNR](./pnr.md) is returned.
+The `result.booking` object shows the response back from Videcom. The example above shows the response when there is a problem with payment. If, however, payment is successful, the new [PNR](./pnr.md) is returned as `result.booking.pnr`.
