@@ -32,7 +32,7 @@ The `passengers` array in the payload must contain at least one Passenger object
 }
 ```
 
-- `type` - *(String, optional)* Valid options are `ADULT`, `CHILD`, or `INFANT` (case-insensitive). If undefined, the `type` will be calculated based on the `dob`.
+- `type` - *(String, optional)* Valid options are `ADULT`, `CHILD`, or `INFANT` (case-insensitive). If undefined, the `type` will be calculated based on the `dob` where 18 years or older is `ADULT` and 2 years or older is `CHILD` and under 2 is `INFANT`.
 - `age` - *(String, Number, optional)* For adults & children, age should be in years. For an infant, age should be in months, e.g.: `13 MTHS`. If undefined, `age` is calculated based on the `dob`
 - `name` - *(Object, required)*
   - `first` - *(String, required)*
