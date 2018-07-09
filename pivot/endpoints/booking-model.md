@@ -1,52 +1,4 @@
-# `GET /pivot/pnr`
-
-This endpoint will return the PNR from Videcom.
-
-- Path :: `/pivot/pnr?rloc=abc123`
-- Method :: `GET`
-- Querystring
-  - `rloc` - *(String, required)* The standard 6-character code for the PNR that you want to read.
-
-## Example
-
-**Request**
-```bash
-curl \
-  -X GET \
-  -H "Videcom-Token: <<TOKEN>>" \
-  -H "Videcom-Airline: <<AIRLINE>>" \
-  -H "Pivot-Version: 1.0" \
-  -H "Pivot-Echo: foobar" \
-  'https://api-test.paxiq.com/pivot/pnr?rloc=abc123'
-```
-
-**Response**
-```json
-{
-  "requestId": "5c86a508-dd28-4588-a87a-0c954d2b4b16",
-  "echo": "foobar",
-  "version": "1.0",
-  "result": {
-    "command": "*abc123~x",
-    "raw": "<PNR RLOC=\"ABC123\" PNRLocked=\"False\" ...>...</PNR>",
-    "pnr": {
-      "rloc": "ABC123",
-      "locked": false,
-      ... // omitted for brevity
-    }
-  }
-}
-```
-
-## Data Modeling
-
-The `result.pnr` object is the standardized JSON version of the Videcom XML PNR (which is still accessible via the `result.raw`).
-
-We've standardized a number of child data models and have converted specific values from `String` to the JavaScript type that is appropriate.
-
-We use strict data validation practices to verify that the data we read from Videcom meets expected standards. If this validation fails, it will throw an error in the response.
-
-## PNR
+# Booking Model
 
 - `rloc` - String
 - `locked` - Boolean
@@ -58,7 +10,7 @@ We use strict data validation practices to verify that the data we read from Vid
 - `editFlights` - Boolean
 - `editProducts` - Boolean
 - `passengers` - Array of [Passenger](#passenger)
-- `itineraries` - Array of [Itinerary](#itinerary)
+- `segments` - Array of [Segment](#segment)
 - `mps` - Array of [MP](#mp)
 - `contacts` - Array of [Contact](#contact)
 - `apfax` - Array of [AFX](#afx)
@@ -87,7 +39,7 @@ We use strict data validation practices to verify that the data we read from Vid
 - `age` - String, infant ages are recorded as "13 MTHS"
 - `awards` - String
 
-## Itinerary
+## Segment
 
 - `segmentNumber` - Number, unique identifier for this itinerary/segment within this PNR
 - `airlineId` - String, the 2-character identifier for the airline

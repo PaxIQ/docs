@@ -1,38 +1,113 @@
-# `GET /pivot/availability`
+# Availability
 
 This endpoint will return the flight availability data for the specified querystring values.
 
-- Path :: `/pivot/availability`
-- Method :: `GET`
-- Querystring
-  - `date` - *(String, required)* The date that you want to look for an availability. Format can be any supported by Moment (https://momentjs.com/docs/#/parsing/string/)
-  - `depart` - *(String, required)* IATA code for the point of departure.
-  - `arrive` - *(String, required)* IATA code for the point of arrival.
-  - `passengers` - *(Number, optional, default = 1)* The number of ticketed passengers.
+- Availability
+  - [Read](#availability-read)
 
-## Example
+## Availability Read
 
-**Request**
+The querystring parameters for this endpoint are:
+- `date` - *(String, required)* The date that you want to look for an availability. Format can be any supported by Moment (https://momentjs.com/docs/#/parsing/string/)
+- `depart` - *(String, required)* IATA code for the point of departure.
+- `arrive` - *(String, required)* IATA code for the point of arrival.
+- `passengers` - *(Number, optional, default = 1)* The number of ticketed passengers.
+
+### Example Request
+
 ```bash
 curl \
-  -X GET \
-  -H "Videcom-Token: <<TOKEN>>" \
-  -H "Videcom-Airline: <<AIRLINE>>" \
-  -H "Pivot-Version: 1.0" \
-  -H "Pivot-Echo: bar" \
-  'https://api-test.paxiq.com/pivot/availability?date=2018-05-05&depart=pdx&arrive=sea'
+  -H "Videcom-Token: {TOKEN}" \
+  -H "Videcom-Airline: {AIRLINE}" \
+  'https://api-test.paxiq.com/pivot/1.0/availability?date=2018-07-24&depart=pit&arrive=aoo'
 ```
 
-**Response**
+## Example Response
+
 ```json
 {
-  "requestId": "bed85caa-a0e0-44c8-b80b-b220357ca202",
-  "echo": "bar",
-  "version": "1.0",
+  "requestId": "62f9e6c3-8f88-4cb7-bf6c-ae473dc0adfb",
+  "echo": null,
   "result": {
-    "command": "A05MAYPDXSEA[SALESCITY=PDX,VARS=TRUE,CLASSBANDS=TRUE,STARTCITY=PDX,SINGLESEG=S,FGNOAV=TRUE,QTYSEATS=1]",
-    "_raw": "<xml><classbands><band .../></classbands><itin ...></itin><cal><day .../></cal></xml>",
+    "command": "A24JULPITAOO[SALESCITY=PIT,VARS=TRUE,CLASSBANDS=TRUE,STARTCITY=PIT,SINGLESEG=S,FGNOAV=TRUE,QTYSEATS=1]",
+    "raw": "<xml>...</xml>",
     "availability": [
+      {
+        "line": 1,
+        "airlineId": "9X",
+        "flightNumber": "0356",
+        "flightId": "9X0356",
+        "equipmentType": "CNC",
+        "stops": 0,
+        "depart": {
+          "airport": "PIT",
+          "date": "2018-07-24",
+          "time": "13:00:00",
+          "timezone": "America/New_York",
+          "moment": "2018-07-24T17:00:00.000Z"
+        },
+        "arrive": {
+          "airport": "AOO",
+          "date": "2018-07-24",
+          "time": "13:50:00",
+          "timezone": "America/New_York",
+          "moment": "2018-07-24T17:50:00.000Z"
+        },
+        "duration": 50,
+        "classes": [
+          {
+            "classband": 1,
+            "class": "Y",
+            "available": 1,
+            "currency": "USD",
+            "CurInf": "2,0.01,0.01",
+            "price": 45.77,
+            "tax": 13.23,
+            "fav": 1,
+            "miles": 0,
+            "awards": 0,
+            "fid": 229,
+            "finf": "0,0,1",
+            "name": "Flexible",
+            "cabin": "Y",
+            "total": 59
+          },
+          {
+            "classband": 2,
+            "class": "",
+            "available": 0,
+            "currency": "USD",
+            "CurInf": "2,0.01,0.01",
+            "price": 0,
+            "tax": 0,
+            "fav": 0,
+            "miles": 0,
+            "awards": 0,
+            "fid": 0,
+            "finf": "",
+            "name": "Flexible",
+            "cabin": "Y",
+            "total": 0
+          },
+          {
+            "classband": 3,
+            "class": "",
+            "available": 0,
+            "currency": "USD",
+            "CurInf": "2,0.01,0.01",
+            "price": 0,
+            "tax": 0,
+            "fav": 0,
+            "miles": 0,
+            "awards": 0,
+            "fid": 0,
+            "finf": "",
+            "name": "Flexible",
+            "cabin": "Y",
+            "total": 0
+          }
+        ]
+      },
       ...
     ]
   }

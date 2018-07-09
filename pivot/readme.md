@@ -8,7 +8,6 @@ Pivot provides REST endpoints for some of the more common interactions with Vide
 - [Versioning](./versioning.md)
 - [Call Tracing](./tracing.md)
 - [Endpoints](./endpoints)
-  - [PNR](./endpoints/pnr.md)
   - [Availability](./endpoints/availability.md)
   - [Booking](./endpoints/booking.md)
   - [Command](./endpoints/command.md)
