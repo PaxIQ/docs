@@ -7,48 +7,48 @@ This endpoint provides an interface directly to the Videcom command-line. You ca
 - Payload
   - `command` - *(String, required)* The standard Videcom command-line command you want to submit.
 
-## Example
+## Sample Request
 
-**Request**
 ```bash
 curl \
   -X POST \
-  -H "Videcom-Token: <<TOKEN>>" \
-  -H "Videcom-Airline: <<AIRLINE>>" \
-  -H "Pivot-Version: 1.0" \
-  -H "Pivot-Echo: foo" \
+  -H "Videcom-Token: {TOKEN}" \
+  -H "Videcom-Airline: {AIRLINE}" \
   -H "Content-Type: application/json" \
-  -d '{"command":"*abc123"}' \
-  'https://api-test.paxiq.com/pivot/command'
+  -d '{"command":"*ABC123~x"}' \
+  https://api-test.paxiq.com/pivot/1.0/command
 ```
 
-**Response**
-```json
+## Sample Response
+
+```js
 {
-  "requestId": "78dc987e-beed-4136-99ea-f11d8e9fad34",
-  "echo": "foo",
-  "version": "1.0",
+  "requestId": "6edff1f2-bf56-45ca-af34-5d60edf252bc",
+  "echo": null,
   "result": {
-    "command": "*abc123",
-    "raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><RunVRSCommandResult xmlns=\"http://videcom.com/\">ERROR - RECORD NOT FOUND - ABC123</RunVRSCommandResult></soap:Body></soap:Envelope>",
-    "body": "ERROR - RECORD NOT FOUND - ABC123",
-    "json": null
+    "command": "*AAH5TV~x",
+    "raw": "<PNR  ... </PNR>",
+    "json": {
+      "RLOC": "AAH5TV",
+      ...
+    }
   }
 }
+
 ```
 
 ## Data Modeling
 
 Since the `/pivot/command` endpoint exposes the standard Videcom command line interface, we have to use a generic data model for returning responses.
 
+## Command
+
+This property shows the command that was submitted directly to Videcom.
+
 ## Raw
 
-The `result.raw` value is just that, the raw, untouched response from Videcom.
-
-## Body
-
-The `result.body` value is what we find between the `<RunVRSCommandResult>` elements in the `result.raw`.
+The `result.raw` value is just that, the raw, untouched response from Videcom. For many commands, appending `~x` will cause Videcom to return an XML formatted response.
 
 ## JSON
 
-If the `result.body` is XML, Pivot will parse it into JSON using the `pixl-xml` library with a `{ forceArrays: true }` option.
+Pivot will attempt to convert the raw response from XML to JSON. If the raw response is not in XML format, this property will be `null`.
