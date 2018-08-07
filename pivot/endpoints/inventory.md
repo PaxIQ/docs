@@ -73,8 +73,8 @@ The response data model uses the standard Pivot response model:
   },
   "classes": [
     { "class": "Y", "inventory": 10 },
-    { "class": "S", "inventory": 5 },
-    { "class": "K", "inventory": 2 }
+    { "class": "B", "inventory": 5 },
+    { "class": "M", "inventory": 2 }
   ]
 }
 ```
