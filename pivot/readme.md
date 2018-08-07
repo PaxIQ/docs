@@ -11,6 +11,7 @@ Pivot provides REST endpoints for some of the more common interactions with Vide
   - [Availability](./endpoints/availability.md)
   - [Booking](./endpoints/booking.md)
   - [Command](./endpoints/command.md)
+  - [Inventory](./endpoints/inventory.md)
   - [Logs](./endpoints/logs.md)
 
 # Feedback
