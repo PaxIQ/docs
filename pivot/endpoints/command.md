@@ -1,8 +1,8 @@
-# `POST /pivot/command`
+# Command
 
 This endpoint provides an interface directly to the Videcom command-line. You can construct your own commands and submit them via this endpoint.
 
-- Path :: `/pivot/command`
+- Path :: `/pivot/1.0/command`
 - Method :: `POST`
 - Payload
   - `command` - *(String, required)* The standard Videcom command-line command you want to submit.
