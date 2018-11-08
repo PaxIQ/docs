@@ -7,6 +7,7 @@ Pivot provides REST endpoints for some of the more common interactions with Vide
 - [Authentication](./authentication.md)
 - [Versioning](./versioning.md)
 - [Call Tracing](./tracing.md)
+- [Headers](./headers.md)
 - [Endpoints](./endpoints)
   - [Availability](./endpoints/availability.md)
   - [Booking](./endpoints/booking.md)

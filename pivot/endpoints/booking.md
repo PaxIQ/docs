@@ -96,12 +96,19 @@ The `segments` array in the payload must contain at least one Segment object.
 
 ### Payment
 
-The `payment` object defines how to handle the payment for the booking. You can specify *either* `cash` or `credit` as a method of payment.
+The `payment` object defines how to handle the payment for the booking. You can specify `cash`, `invoice`, or `credit` as a method of payment.
 
 **Cash**
 ```json
 {
   "method": "cash"
+}
+```
+
+**Invoice**
+```json
+{
+  "method": "invoice"
 }
 ```
 
